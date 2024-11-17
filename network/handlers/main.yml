@@ -1,0 +1,15 @@
+---
+- name: Start the network
+  community.libvirt.virt_net:
+    command: create
+    name: "{{ network_name }}"
+
+- name: Ensure that the network is active
+  community.libvirt.virt_net:
+    state: active
+    name: "{{ network_name }}"
+
+- name: Ensure that the network autostart is enabled
+  community.libvirt.virt_net:
+    autostart: true
+    name: "{{ network_name }}"

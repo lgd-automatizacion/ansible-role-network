@@ -1,0 +1,13 @@
+---
+- name: Define and configure multiple networks
+  community.libvirt.virt_net:
+    command: define
+    name: "{{ item.network_name }}"
+    xml: "{{ lookup('template', 'network/network.xml.j2') }}"
+  loop: "{{ networks }}"
+  loop_control:
+    loop_var: item
+  notify:
+    - Start the network
+    - Ensure that the network is active
+    - Ensure that the network autostart is enabled

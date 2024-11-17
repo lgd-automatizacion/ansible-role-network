@@ -1,0 +1,54 @@
+<network>
+  <name>{{ network_name }}</name>
+
+  {% if network_type == 'nat' %}
+  <!-- Configuración para una red de tipo NAT -->
+  <forward dev='{{ bridge_name }}' mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+    <interface dev='{{ bridge_name }}'/>
+  </forward>
+  <bridge name='{{ virtual_bridge_name }}' stp='on' delay='0'/>
+  <mac address='{{ mac_address }}'/>
+  <domain name='{{ network_name }}' localOnly='yes'/>
+  <dns>
+    <host ip='{{ ip_address_gateway }}'>
+      <hostname>gateway</hostname>
+    </host>
+  </dns>
+  <ip address='{{ ip_address_gateway }}' netmask='255.255.255.0' localPtr='yes'>
+    <dhcp>
+      <range start='{{ dhcp_start }}' end='{{ dhcp_end }}'/>
+    </dhcp>
+  </ip>
+
+  {% elif network_type == 'isolate' %}
+  <!-- Configuración para una red de tipo Isolate -->
+  <bridge name='{{ bridge_name }}' stp='on' delay='0'/>
+  <mac address='{{ mac_address }}'/>
+  <domain name='{{ network_name }}' localOnly='yes'/>
+  <dns>
+    <host ip='{{ ip_address_gateway }}'>
+      <hostname>gateway</hostname>
+    </host>
+  </dns>
+  <ip address='{{ ip_address_gateway }}' netmask='255.255.255.0' localPtr='yes'>
+  </ip>
+  
+  {% else %}
+  <!-- Configuración por defecto (bridge) -->
+  <bridge name='{{ bridge_name }}' stp='on' delay='0'/>
+  <mac address='{{ mac_address }}'/>
+  <domain name='{{ network_name }}' localOnly='yes'/>
+  <dns>
+    <host ip='{{ ip_address_gateway }}'>
+      <hostname>gateway</hostname>
+    </host>
+  </dns>
+  <ip address='{{ ip_address_gateway }}' netmask='255.255.255.0' localPtr='yes'>
+  </ip>
+  {% endif %}
+
+
+</network>
