@@ -3,7 +3,7 @@
   community.libvirt.virt_net:
     command: define
     name: "{{ item.network_name }}"
-    xml: "{{ lookup('template', 'network/network.xml.j2') }}"
+    xml: "{{ lookup('template', 'network/network.xml.j2', item) }}"
   loop: "{{ networks }}"
   loop_control:
     loop_var: item
