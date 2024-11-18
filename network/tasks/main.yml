@@ -9,8 +9,8 @@
     name: "{{ item.network_name }}"
     xml: "{{ lookup('template', 'network/network.xml.j2', item) }}"
   loop: "{{ networks }}"
-  loop_control:
-    loop_var: item
+  # loop_control:
+  #   loop_var: item
   notify:
     - Start the network
     - Ensure that the network is active
