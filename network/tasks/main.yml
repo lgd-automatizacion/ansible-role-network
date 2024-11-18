@@ -1,4 +1,8 @@
 ---
+- name: Print the networks variable
+  debug:
+    var: networks
+
 - name: Define and configure multiple networks
   community.libvirt.virt_net:
     command: define
